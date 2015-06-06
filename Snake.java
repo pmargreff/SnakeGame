@@ -44,7 +44,6 @@ public class Snake {
             body_.add(i, tmp);
 
         }
-
     }
 
     /**
@@ -77,13 +76,14 @@ public class Snake {
     }
 
     public void move() {
+
         for (int i = body_.size(); i > 0; i--) {
             body_.get(i - 1);
 
         }
 
         Point tmp = new Point(body_.get(0));
-
+        
         if (direction_ == 37) {         //left
             tmp.setLocation(tmp.getX(), tmp.getY() - cellSize_);
         } else if (direction_ == 38) {  //up
@@ -93,15 +93,13 @@ public class Snake {
         } else if (direction_ == 40) {  //down
             tmp.setLocation(tmp.getX() - cellSize_, tmp.getY());
         }
-
-        body_.add(0, tmp);
-
+        body_.set(0, tmp);
     }
 
     /**
-     * testa se é possível ir para tal direção 
-     * e caso o teste resultar em verdadeiro 
-     * atualiza a direção 
+     * testa se é possível ir para tal direção e caso o teste resultar em
+     * verdadeiro atualiza a direção
+     *
      * @param direction inteiro representando a direção
      */
     public void getDirection(int direction) {
@@ -117,5 +115,9 @@ public class Snake {
             direction_ = direction;
 
         }
+    }
+
+    public int getSize() {
+        return body_.size();
     }
 }
