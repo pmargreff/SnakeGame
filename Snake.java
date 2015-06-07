@@ -1,12 +1,13 @@
-
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 /**
  * @version 0.1
  * @author pmargreff
  */
-public class Snake {
+public class Snake implements KeyListener {
 
     private final int width_, height_;
     private final int cellSize_; //tamanho de cada unidade que compõe a Snake
@@ -83,7 +84,7 @@ public class Snake {
         }
 
         Point tmp = new Point(body_.get(0));
-        
+
         if (direction_ == 37) {         //left
             tmp.setLocation(tmp.getX(), tmp.getY() - cellSize_);
         } else if (direction_ == 38) {  //up
@@ -96,28 +97,32 @@ public class Snake {
         body_.set(0, tmp);
     }
 
-    /**
-     * testa se é possível ir para tal direção e caso o teste resultar em
-     * verdadeiro atualiza a direção
-     *
-     * @param direction inteiro representando a direção
-     */
-    public void getDirection(int direction) {
+    public int getSize() {
+        return body_.size();
+    }
 
-        if (((direction == 37) || (direction == 39)) && ((direction_ == 38) || (direction_ == 40))) {
+    @Override
+    public void keyTyped(KeyEvent e) {
+        if (((e.getKeyCode() == 37) || (e.getKeyCode() == 39)) && ((direction_ == 38) || (direction_ == 40))) {
 
-            direction_ = direction;
+            direction_ = e.getKeyCode();
 
         }
 
-        if (((direction == 38) || (direction == 40)) && ((direction_ == 37) || (direction_ == 39))) {
+        if (((e.getKeyCode() == 38) || (e.getKeyCode() == 40)) && ((direction_ == 37) || (direction_ == 39))) {
 
-            direction_ = direction;
+            direction_ = e.getKeyCode();
 
         }
     }
 
-    public int getSize() {
-        return body_.size();
+    @Override
+    public void keyPressed(KeyEvent e) {
+        //não utilizado
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        //não utilizado 
     }
 }
