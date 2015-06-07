@@ -4,7 +4,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 /**
- * @version 0.1
+ * @version 1.0
  * @author pmargreff
  */
 public class Snake implements KeyListener {
@@ -16,7 +16,7 @@ public class Snake implements KeyListener {
 
     /**
      * Snake é sempre construída no meio da tela
-     *
+     * e inicia se movimentando para a direita
      * @param width - largura
      * @param height - altura
      */
@@ -34,8 +34,8 @@ public class Snake implements KeyListener {
             this.height_ = height;
         }
 
-        this.cellSize_ = 5;
-        this.direction_ = 39;
+        this.cellSize_ = 8;
+        this.direction_ = 38;
         this.body_ = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
@@ -75,11 +75,14 @@ public class Snake implements KeyListener {
 
         return live;
     }
-
+  
     public void move() {
 
-        for (int i = body_.size(); i > 0; i--) {
-            body_.get(i - 1);
+        
+        for (int i = body_.size() - 1; i > 0; i--) {
+            Point tmp = new Point(body_.get(i - 1));
+            body_.set(i, tmp);
+            
 
         }
 
@@ -100,9 +103,18 @@ public class Snake implements KeyListener {
     public int getSize() {
         return body_.size();
     }
+    
+    public Point getPoint(int i){
+        return body_.get(i);
+        
+    }
 
+    public Point getFirst(){
+        return body_.get(0);
+    }
     @Override
     public void keyTyped(KeyEvent e) {
+        System.out.println("Teste");
         if (((e.getKeyCode() == 37) || (e.getKeyCode() == 39)) && ((direction_ == 38) || (direction_ == 40))) {
 
             direction_ = e.getKeyCode();
