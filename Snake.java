@@ -7,12 +7,12 @@ import java.util.ArrayList;
  * @version 1.0
  * @author pmargreff
  */
-public class Snake implements KeyListener {
+public class Snake{
 
     private final int width_, height_;
     private final int cellSize_; //tamanho de cada unidade que compõe a Snake
     private ArrayList<Point> body_;
-    private int direction_;
+    private static int direction_;
 
     /**
      * Snake é sempre construída no meio da tela
@@ -35,15 +35,17 @@ public class Snake implements KeyListener {
         }
 
         this.cellSize_ = 8;
-        this.direction_ = 38;
+        this.direction_ = 39;
         this.body_ = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             Point tmp = new Point();
             tmp.setLocation((width / 2) - i * cellSize_, (height / 2));
 
+            
             body_.add(i, tmp);
-
+//            System.out.println(body_.get(i).getX() +" "+ body_.get(i).getY());
+            
         }
     }
 
@@ -77,25 +79,23 @@ public class Snake implements KeyListener {
     }
   
     public void move() {
-
         
         for (int i = body_.size() - 1; i > 0; i--) {
             Point tmp = new Point(body_.get(i - 1));
             body_.set(i, tmp);
-            
 
         }
 
         Point tmp = new Point(body_.get(0));
 
-        if (direction_ == 37) {         //left
-            tmp.setLocation(tmp.getX(), tmp.getY() - cellSize_);
-        } else if (direction_ == 38) {  //up
-            tmp.setLocation(tmp.getX() + cellSize_, tmp.getY());
-        } else if (direction_ == 39) {  //rigth
-            tmp.setLocation(tmp.getX(), tmp.getY() + cellSize_);
-        } else if (direction_ == 40) {  //down
+        if (direction_ == 37) {        
             tmp.setLocation(tmp.getX() - cellSize_, tmp.getY());
+        } else if (direction_ == 38) { 
+            tmp.setLocation(tmp.getX() , tmp.getY() + cellSize_);
+        } else if (direction_ == 39) { 
+            tmp.setLocation(tmp.getX() + cellSize_, tmp.getY());
+        } else if (direction_ == 40) { 
+            tmp.setLocation(tmp.getX() , tmp.getY()- cellSize_);
         }
         body_.set(0, tmp);
     }
@@ -112,29 +112,8 @@ public class Snake implements KeyListener {
     public Point getFirst(){
         return body_.get(0);
     }
-    @Override
-    public void keyTyped(KeyEvent e) {
-        System.out.println("Teste");
-        if (((e.getKeyCode() == 37) || (e.getKeyCode() == 39)) && ((direction_ == 38) || (direction_ == 40))) {
-
-            direction_ = e.getKeyCode();
-
-        }
-
-        if (((e.getKeyCode() == 38) || (e.getKeyCode() == 40)) && ((direction_ == 37) || (direction_ == 39))) {
-
-            direction_ = e.getKeyCode();
-
-        }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        //não utilizado
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        //não utilizado 
+    
+    public static void setDirection(KeyEvent e){
+        direction_ = e.getKeyCode();
     }
 }
