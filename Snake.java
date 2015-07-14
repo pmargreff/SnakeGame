@@ -4,7 +4,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 /**
- * @version 1.0
+ * @version 8.0
  * @author pmargreff
  */
 public class Snake{
@@ -78,6 +78,9 @@ public class Snake{
         return live;
     }
   
+    /**
+     * Move snake in the current direction
+     */
     public void move() {
         
         for (int i = body_.size() - 1; i > 0; i--) {
@@ -88,13 +91,13 @@ public class Snake{
 
         Point tmp = new Point(body_.get(0));
 
-        if (direction_ == 37) {        
+        if (direction_ == 37) { //move down       
             tmp.setLocation(tmp.getX() - cellSize_, tmp.getY());
-        } else if (direction_ == 38) { 
+        } else if (direction_ == 38) { //move right
             tmp.setLocation(tmp.getX() , tmp.getY() + cellSize_);
-        } else if (direction_ == 39) { 
+        } else if (direction_ == 39) { //move left
             tmp.setLocation(tmp.getX() + cellSize_, tmp.getY());
-        } else if (direction_ == 40) { 
+        } else if (direction_ == 40) { //move up
             tmp.setLocation(tmp.getX() , tmp.getY()- cellSize_);
         }
         body_.set(0, tmp);
@@ -113,7 +116,22 @@ public class Snake{
         return body_.get(0);
     }
     
-    public static void setDirection(KeyEvent e){
-        direction_ = e.getKeyCode();
+    /**
+     * Static method that test if the change direction is valid
+     * @param e KeyEvent get from keyboard
+     */
+    public static void changeDirection(KeyEvent e){
+        
+        if ((direction_ ==  37) || (direction_ ==  39)){
+            if ((e.getKeyCode() ==  38) || (e.getKeyCode() ==  40)){
+                direction_ = e.getKeyCode();
+            }
+            
+        } else if ((direction_ ==  38) || (direction_ ==  40)){
+            if ((e.getKeyCode() ==  37) || (e.getKeyCode() ==  39)){
+                direction_ = e.getKeyCode();
+            }
+        }
+        
     }
 }
