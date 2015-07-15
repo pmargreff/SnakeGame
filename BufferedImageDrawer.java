@@ -23,10 +23,11 @@ public class BufferedImageDrawer extends Frame implements KeyListener
 
  public BufferedImageDrawer(BufferedImage buffIm, int width, int height)
   {
+    addWindowListener(new MyFinishWindow());
+    
     bi = buffIm;
     g2dbi = bi.createGraphics();
- 
-    this.setTitle("Double-Buffering");
+    this.setTitle("Snake Game");
     this.setSize(width,height);
     this.setVisible(true);
     this.setFocusable(true);
@@ -59,8 +60,7 @@ public class BufferedImageDrawer extends Frame implements KeyListener
 
     @Override
     public void keyReleased(KeyEvent e) {
-       System.out.println("Teste");
-       Snake.setDirection(e);
+       Snake.changeDirection(e);
        
     }
 
