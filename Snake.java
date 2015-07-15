@@ -1,10 +1,9 @@
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 /**
- * @version 8.0
+ * @version 0.8
  * @author pmargreff
  */
 public class Snake{
@@ -117,7 +116,7 @@ public class Snake{
     }
     
     /**
-     * Static method that test if the change direction is valid
+     * Static method that test if the changing to new direction is valid
      * @param e KeyEvent get from keyboard
      */
     public static void changeDirection(KeyEvent e){

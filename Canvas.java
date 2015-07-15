@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class Canvas extends TimerTask {
 
+    static Timer t;
     //The window in which everything is shown.
     private BufferedImageDrawer buffid;
 
@@ -30,6 +31,7 @@ public class Canvas extends TimerTask {
         //The lines should have a thickness of 3.0 instead of 1.0.
         buffid.g2dbi.setStroke(new BasicStroke(3.0f));
 
+        
         //Use of antialiasing to have nicer lines.
         buffid.g2dbi.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -56,7 +58,7 @@ public class Canvas extends TimerTask {
 
     //This method is called in regular intervals. This method computes
     //the updated image/frame and calls the repaint method to draw the
-    //updated image on the window.
+    //updated image on the window
     @Override
     public void run() {
 
@@ -70,7 +72,10 @@ public class Canvas extends TimerTask {
 
         snake.move();
         buffid.repaint();
-      
+        if (snake.isAlive() == false){
+            t.cancel();
+//            System.out.println("Morta");
+        }
     }
 
     public static void main(String[] argv) {
@@ -108,8 +113,9 @@ public class Canvas extends TimerTask {
                 height,
                 delay);
 
-        Timer t = new Timer();
+        t = new Timer();
         t.scheduleAtFixedRate(dbce, 0, delay);
+        
 
     }
 
