@@ -61,6 +61,7 @@ public class Canvas extends TimerTask {
     //updated image on the window
     @Override
     public void run() {
+        snake.ableChangeDirection();
 
         //Draw the background.
         buffid.g2dbi.drawImage(bg, 0, 0, null);
@@ -74,8 +75,8 @@ public class Canvas extends TimerTask {
         buffid.repaint();
         if (snake.isAlive() == false){
             t.cancel();
-//            System.out.println("Morta");
         }
+        
     }
 
     public static void main(String[] argv) {

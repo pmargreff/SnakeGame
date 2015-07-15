@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class Snake{
 
+    private static boolean directionFlag_;
     private final int width_, height_;
     private final int cellSize_; //tamanho de cada unidade que compõe a Snake
     private ArrayList<Point> body_;
@@ -36,6 +37,7 @@ public class Snake{
         this.cellSize_ = 8;
         this.direction_ = 39;
         this.body_ = new ArrayList<>();
+        this.directionFlag_ = false;
 
         for (int i = 0; i < 10; i++) {
             Point tmp = new Point();
@@ -59,22 +61,28 @@ public class Snake{
         Point tmp = new Point(body_.get(1));
 
         if (tmp.getX() >= this.width_) {
-            live = false;
+            return false;
         }
 
         if ((tmp.getY() >= this.height_)) {
-            live = false;
+            return false;
         }
 
         if (tmp.getX() <= this.cellSize_) {
-            live = false;
+            return false;
         }
 
         if ((tmp.getY() < this.cellSize_)) {
-            live = false;
+            return false;
+        }
+        
+        for (int i = 1; i < getSize(); i++){
+            if (body_.get(0).equals(body_.get(i))){
+                return false;
+            }
         }
 
-        return live;
+        return true;
     }
   
     /**
@@ -120,17 +128,26 @@ public class Snake{
      * @param e KeyEvent get from keyboard
      */
     public static void changeDirection(KeyEvent e){
-        
-        if ((direction_ ==  37) || (direction_ ==  39)){
+        System.out.print(directionFlag_ + " ");
+        if (((direction_ ==  37) || (direction_ ==  39)) && (directionFlag_ == true)){
             if ((e.getKeyCode() ==  38) || (e.getKeyCode() ==  40)){
                 direction_ = e.getKeyCode();
+                directionFlag_ = false;
             }
             
-        } else if ((direction_ ==  38) || (direction_ ==  40)){
+        } else if (((direction_ ==  38) || (direction_ ==  40) && (directionFlag_ == true))){
             if ((e.getKeyCode() ==  37) || (e.getKeyCode() ==  39)){
                 direction_ = e.getKeyCode();
+                directionFlag_ = false;
             }
         }
         
     }
+    
+    public void ableChangeDirection(){
+        directionFlag_ = true;
+    }
+    
+    
 }
+
