@@ -64,7 +64,7 @@ public class Snake{
             return false;
         }
 
-        if (tmp.getY() >= this.height_ - (borderSpace + 30)) {
+        if (tmp.getY() >= this.height_ - (2 * borderSpace + 10)) {
             return false;
         }
 

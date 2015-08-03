@@ -15,7 +15,7 @@ public class Canvas extends TimerTask {
   int width_;
   int borderSpace_;
 
-  public static Snake snake = new Snake(600, 600);
+  public static Snake snake = new Snake(500, 700);
 //    public static Snake snake = new Snake(600, 600);
 
   /**
@@ -36,7 +36,7 @@ public class Canvas extends TimerTask {
       buffid_.g2dbi.setStroke(new BasicStroke(3.0f));
 
       // the space between the begin windown and the border
-      borderSpace_ = 10;
+      borderSpace_ = 20;
 
       //Use of antialiasing to have nicer lines.
       buffid_.g2dbi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -75,7 +75,7 @@ public class Canvas extends TimerTask {
       //Fazer disso parte do cenário de fundo, para não precisar ser redesenhado a todo momento.
       buffid_.g2dbi.setPaint(Color.white);
       buffid_.g2dbi.setStroke(new BasicStroke(3.0f));
-      Rectangle2D.Double field = new Rectangle2D.Double(borderSpace_, borderSpace_, width_ - (borderSpace_ + 10) , height_ - (borderSpace_ + 30));
+      Rectangle2D.Double field = new Rectangle2D.Double(borderSpace_, borderSpace_, width_ - 2 * borderSpace_, height_ - (2 * borderSpace_ + 20));
       buffid_.g2dbi.draw(field);
 
       buffid_.g2dbi.setStroke(new BasicStroke(3.0f));
@@ -98,9 +98,9 @@ public class Canvas extends TimerTask {
   public static void main(String[] argv) {
 
       //Width of the window
-      int width = 600;
+      int width = 500;
       //Height of the window
-      int height = 600;
+      int height = 700;
 
       //Specifies (in milliseconds) when the frame should be updated.
       int delay = 400;
