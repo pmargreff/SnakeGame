@@ -43,39 +43,39 @@ public class Snake{
             Point tmp = new Point();
             tmp.setLocation((width / 2) - i * cellSize_, (height / 2));
 
-            
+
             body_.add(i, tmp);
 //            System.out.println(body_.get(i).getX() +" "+ body_.get(i).getY());
-            
+
         }
     }
 
     /**
-     * Confere se a snake não se movimentou através dos limites do tamanha da
-     * janela e a partir disto atribui como viva ou morta
-     *
+     * Confere se a snake não se movimentou através dos limites do tamanho da
+     * janela e se não tenteu colidir com o próprio corpo e
+     * partir  atribui como viva ou morta
      * @return live - false para morta, true para viva
      */
-    public boolean isAlive() {
+    public boolean isAlive(int borderSpace) {
         boolean live = true;
         Point tmp = new Point(body_.get(1));
 
-        if (tmp.getX() >= this.width_) {
+        if (tmp.getX() >= this.width_ - (borderSpace + 10)) {
             return false;
         }
 
-        if ((tmp.getY() >= this.height_)) {
+        if (tmp.getY() >= this.height_ - (borderSpace + 30)) {
             return false;
         }
 
-        if (tmp.getX() <= this.cellSize_) {
+        if (tmp.getX() <= 7 + borderSpace) {
             return false;
         }
 
-        if ((tmp.getY() < this.cellSize_)) {
+        if (tmp.getY() <= 7 + borderSpace) {
             return false;
         }
-        
+
         for (int i = 1; i < getSize(); i++){
             if (body_.get(0).equals(body_.get(i))){
                 return false;
@@ -84,12 +84,12 @@ public class Snake{
 
         return true;
     }
-  
+
     /**
      * Move snake in the current direction
      */
     public void move() {
-        
+
         for (int i = body_.size() - 1; i > 0; i--) {
             Point tmp = new Point(body_.get(i - 1));
             body_.set(i, tmp);
@@ -98,7 +98,7 @@ public class Snake{
 
         Point tmp = new Point(body_.get(0));
 
-        if (direction_ == 37) { //move down       
+        if (direction_ == 37) { //move down
             tmp.setLocation(tmp.getX() - cellSize_, tmp.getY());
         } else if (direction_ == 38) { //move right
             tmp.setLocation(tmp.getX() , tmp.getY() + cellSize_);
@@ -113,16 +113,16 @@ public class Snake{
     public int getSize() {
         return body_.size();
     }
-    
+
     public Point getPoint(int i){
         return body_.get(i);
-        
+
     }
 
     public Point getFirst(){
         return body_.get(0);
     }
-    
+
     /**
      * Static method that test if the changing to new direction is valid
      * @param e KeyEvent get from keyboard
@@ -134,20 +134,19 @@ public class Snake{
                 direction_ = e.getKeyCode();
                 directionFlag_ = false;
             }
-            
+
         } else if (((direction_ ==  38) || (direction_ ==  40) && (directionFlag_ == true))){
             if ((e.getKeyCode() ==  37) || (e.getKeyCode() ==  39)){
                 direction_ = e.getKeyCode();
                 directionFlag_ = false;
             }
         }
-        
+
     }
-    
+
     public void ableChangeDirection(){
         directionFlag_ = true;
     }
-    
-    
-}
 
+
+}
